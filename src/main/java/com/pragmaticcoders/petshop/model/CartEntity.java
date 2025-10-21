@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,14 +25,12 @@ public class CartEntity {
     private String sessionId;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CartItemEntity> cartItems;
+    private List<CartItemEntity> cartItems = new ArrayList<>();
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
 }
