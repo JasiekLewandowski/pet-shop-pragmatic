@@ -4,7 +4,6 @@ import com.pragmaticcoders.petshop.dto.CartDTO;
 import com.pragmaticcoders.petshop.dto.CreateCartItemRequest;
 import com.pragmaticcoders.petshop.service.CartService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +18,14 @@ public class CartController {
     private CartService cartService;
 
     @GetMapping
-    public ResponseEntity<CartDTO> getCart(@RequestParam @NotBlank String sessionId) {
-        return ResponseEntity.ok(cartService.getCart(sessionId));
+    public ResponseEntity<CartDTO> getCart(@RequestHeader String xSessionId) {
+        return ResponseEntity.ok(cartService.getCart(xSessionId));
     }
 
     @PostMapping("/item")
-    public ResponseEntity<CartDTO> addCartItem(@RequestParam @NotBlank String sessionId,
+    public ResponseEntity<CartDTO> addCartItem(@RequestHeader String xSessionId,
                                                @Valid @RequestBody CreateCartItemRequest request) {
-        return ResponseEntity.ok(cartService.addCartItem(request, sessionId));
+        return ResponseEntity.ok(cartService.addCartItem(request, xSessionId));
     }
 
 
