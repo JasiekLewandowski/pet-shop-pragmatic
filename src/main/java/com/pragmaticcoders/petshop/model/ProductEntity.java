@@ -46,12 +46,4 @@ public class ProductEntity {
     @Column(name = "discount_type", nullable = false)
     private DiscountType discountType;
 
-    @NotNull
-    @Column(name = "required_quantity", nullable = false)
-    private Integer requiredQuantity;
-
-    @NotNull
-    @Column(name = "special_price", precision = 10, scale = 2, nullable = false)
-    private BigDecimal specialPrice;
-
 }

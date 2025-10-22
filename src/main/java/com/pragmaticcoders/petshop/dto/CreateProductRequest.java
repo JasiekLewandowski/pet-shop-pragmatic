@@ -36,12 +36,4 @@ public class CreateProductRequest {
     @NotNull
     private DiscountType discountType;
 
-    @Min(0)
-    @Max(PRODUCT_QUANTITY_MAX)
-    private int requiredQuantity;
-
-    @NotNull
-    @DecimalMin(value = MIN_PRICE, message = PRICE_TOO_SMALL)
-    @DecimalMax(value = MAX_PRICE, message = PRICE_TOO_BIG)
-    private BigDecimal specialPrice;
 }
