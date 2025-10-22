@@ -57,6 +57,10 @@ Podczas obliczania wartości koszyka stosowane są następujące kroki:
 6. Suma wszystkich wartości jest zapisywana w DTO.
 
 ---
+### Scheduler do usuwania starych koszyków
+
+Scheduler CartCleanupScheduler automatycznie usuwa koszyki starsze niż 7 dni z bazy danych, aby zapobiec jej przepełnieniu i utrzymać porządek w danych tymczasowych. Uruchamia się codziennie o godzinie 3:00 w strefie czasowej Europe/Warsaw i usuwa koszyki, które nie były aktualizowane od 7 dni.
+
 
 ## Technologie
 
