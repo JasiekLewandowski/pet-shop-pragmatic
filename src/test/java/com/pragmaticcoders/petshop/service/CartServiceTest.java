@@ -41,7 +41,7 @@ class CartServiceTest {
 
     @BeforeAll
     static void setup() {
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        TimeZone.setDefault(TimeZone.getTimeZone("Europe/Warsaw"));
     }
 
     @Test
