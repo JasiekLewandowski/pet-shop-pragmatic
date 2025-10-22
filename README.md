@@ -44,7 +44,7 @@ Podczas obliczania wartości koszyka stosowane są następujące kroki:
 
 ### Aktualizacja produktów
 
-- Definicja produktu (`ProductEntity`) przechowuje aktualne informacje o produkcie, takie jak nazwa, cena normalna, wymagania dla promocji (`requiredQuantity`) oraz specjalna cena (`specialPrice`).
+- Definicja produktu (`ProductEntity`) przechowuje aktualne informacje o produkcie, takie jak nazwa, cena normalna.
 - Dane w `ProductEntity` mogą być aktualizowane, co pozwala na dynamiczne zmiany w promocjach i cenach, bez konieczności modyfikowania logiki koszyka.
 
 ### Podsumowanie procesu dodawania produktu do koszyka
