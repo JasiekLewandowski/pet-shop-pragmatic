@@ -2,7 +2,7 @@
 
 ## Opis projektu
 Pet Shop to prosty system koszyka zakupowego dla sklepu zoologicznego.  
-Projekt został stworzony w ramach zadania rekrutacyjnego dla firmy Pragmatic Coders.  
+Projekt został stworzony w ramach zadania rekrutacyjnego.  
 Aplikacja obsługuje m.in.:
 
 - Dodawanie produktów do koszyka
