@@ -17,14 +17,17 @@ public class CartItemService {
     @Autowired
     private ProductService productService;
 
-    public CartItemEntity addCartItem(CartEntity cartEntity, String barcode, int quantity) {
-        Optional<CartItemEntity> cartItem = findItemByBarcode(cartEntity, barcode);
+    public CartEntity addCartItem(CartEntity cartEntity, String barcode, int quantity) {
+        Optional<CartItemEntity> cartItemOpt = findItemByBarcode(cartEntity, barcode);
 
-        if (cartItem.isPresent()) {
-            return updateCartItemQuantity(cartItem.get(), quantity);
+        if (cartItemOpt.isPresent()) {
+            var cartItem = cartItemOpt.get();
+            cartItem.setQuantity(cartItem.getQuantity() + quantity);
+        } else {
+            createNewCartItem(cartEntity, barcode, quantity);
         }
 
-        return createNewCartItem(cartEntity, barcode, quantity);
+        return cartEntity;
     }
 
     private Optional<CartItemEntity> findItemByBarcode(CartEntity cartEntity, String barcode) {

@@ -21,10 +21,10 @@ public class BundlePromotionEntity {
     private Long id;
 
     @NotBlank
-    private String productBarcodeA;
+    private String firstProductBarcode;
 
     @NotBlank
-    private String productBarcodeB;
+    private String secondProductBarcode;
 
     @NotNull
     private BigDecimal bundlePrice;

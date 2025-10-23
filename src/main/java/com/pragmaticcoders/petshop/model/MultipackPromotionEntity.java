@@ -19,7 +19,7 @@ public class MultipackPromotionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "barcode", nullable = false, length = 13)
+    @Column(name = "product_barcode", nullable = false, length = 13)
     private String productBarcode;
 
     @Column(name = "required_quantity", nullable = false)

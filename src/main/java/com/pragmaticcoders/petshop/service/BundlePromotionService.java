@@ -25,8 +25,8 @@ public class BundlePromotionService {
         List<BundlePromotionEntity> activeBundles = bundlePromotionRepository.findByActiveTrue();
 
         for (BundlePromotionEntity bundle : activeBundles) {
-            var cartItemA = checkForBundleItemInCart(cart, bundle.getProductBarcodeA());
-            var cartItemB = checkForBundleItemInCart(cart, bundle.getProductBarcodeB());
+            var cartItemA = checkForBundleItemInCart(cart, bundle.getFirstProductBarcode());
+            var cartItemB = checkForBundleItemInCart(cart, bundle.getSecondProductBarcode());
 
             if (cartItemA != null && cartItemB != null) {
                 int bundleCount = Math.min(cartItemA.getQuantity(), cartItemB.getQuantity());

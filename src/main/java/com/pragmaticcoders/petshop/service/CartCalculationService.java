@@ -17,14 +17,14 @@ public class CartCalculationService {
     private BundlePromotionService bundlePromotionService;
 
 
-    public BigDecimal calculateCartTotalWithoutPromotions(CartEntity cartEntity) {
+    public BigDecimal calculateCartTotal(CartEntity cartEntity) {
         return cartEntity.getCartItems().stream()
                 .map(cartItem ->
                         calculateQuantityByPrice(cartItem.getProduct().getNormalPrice(), cartItem.getQuantity()))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public BigDecimal calculateCartTotal(CartEntity cartEntity) {
+    public BigDecimal calculateCartTotalWithDiscount(CartEntity cartEntity) {
         var nonDiscountedProductsTotal = calculateNonDiscountedProducts(cartEntity);
         var bundleItemsTotal = bundlePromotionService.getDiscountedItemsTotal(cartEntity);
         var multipackItemsTotal = multipackPromotionService.getDiscountedItemsTotal(cartEntity);

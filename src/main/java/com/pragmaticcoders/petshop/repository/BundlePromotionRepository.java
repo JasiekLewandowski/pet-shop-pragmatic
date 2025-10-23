@@ -10,7 +10,6 @@ import java.util.Optional;
 @Repository
 public interface BundlePromotionRepository extends JpaRepository<BundlePromotionEntity, Long> {
 
-    Optional<BundlePromotionEntity> findByProductBarcodeAAndProductBarcodeBAndActiveTrue(String productBarcodeA, String productBarcodeB);
-
     List<BundlePromotionEntity> findByActiveTrue();
+
 }

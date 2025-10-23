@@ -35,7 +35,7 @@ public class CartService {
         var cartEntity = getOrCreateCart(sessionId);
         var cartDTO = cartDTOMapper.toCartDTO(cartEntity);
 
-        if (!cartDTO.getItems().isEmpty()) {
+        if (!cartDTO.getCartItems().isEmpty()) {
             cartDTO.setCartTotal(calculateCartTotal(cartEntity));
             cartDTO.setCartTotalWithDiscount(calculateCartTotalWithDiscount(cartEntity));
         }
@@ -54,19 +54,15 @@ public class CartService {
     public CartDTO addCartItem(CreateCartItemRequest request, String sessionId) {
         var cartEntity = getOrCreateCart(sessionId);
 
-        var cartItemEntity = cartItemService.addCartItem(cartEntity, request.barcode(), request.quantity());
-        cartEntity.getCartItems().add(cartItemEntity);
+        cartItemService.addCartItem(cartEntity, request.barcode(), request.quantity());
         cartEntity.setUpdatedAt(LocalDateTime.now());
         cartRepository.save(cartEntity);
 
         var cartDTO = cartDTOMapper.toCartDTO(cartEntity);
-        cartDTO.setCartTotal(calculateCartTotalWithoutPromotions(cartEntity));
+        cartDTO.setCartTotal(calculateCartTotal(cartEntity));
+        cartDTO.setCartTotalWithDiscount(calculateCartTotalWithDiscount(cartEntity));
 
         return cartDTO;
-    }
-
-    private BigDecimal calculateCartTotalWithoutPromotions(CartEntity cartEntity) {
-        return cartCalculationService.calculateCartTotalWithoutPromotions(cartEntity);
     }
 
     private BigDecimal calculateCartTotal(CartEntity cartEntity) {
@@ -74,7 +70,7 @@ public class CartService {
     }
 
     private BigDecimal calculateCartTotalWithDiscount(CartEntity cartEntity) {
-        return cartCalculationService.calculateCartTotalWithoutPromotions(cartEntity);
+        return cartCalculationService.calculateCartTotalWithDiscount(cartEntity);
     }
 
 }

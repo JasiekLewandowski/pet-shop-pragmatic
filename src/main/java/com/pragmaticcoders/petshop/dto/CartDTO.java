@@ -16,8 +16,10 @@ import java.util.List;
 public class CartDTO {
 
     private String sessionId;
-    private List<CartItemDTO> items = new ArrayList<>();
-    private BigDecimal cartTotal = BigDecimal.ZERO;
-    private BigDecimal cartTotalWithDiscount = BigDecimal.ZERO;
+    private List<CartItemDTO> cartItems = new ArrayList<>();
+    @Builder.Default
+    private BigDecimal cartTotal = new BigDecimal("0.00");
+    @Builder.Default
+    private BigDecimal cartTotalWithDiscount = new BigDecimal("0.00");
 
 }

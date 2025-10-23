@@ -10,6 +10,6 @@ import org.mapstruct.Mapping;
 public interface CartDTOMapper {
 
     @Mapping(source = "sessionId", target = "sessionId")
-    @Mapping(source = "items", target = "items")
+    @Mapping(source = "cartItems", target = "cartItems")
     CartDTO toCartDTO(CartEntity cartEntity);
 }

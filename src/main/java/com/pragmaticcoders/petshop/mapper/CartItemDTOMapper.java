@@ -11,8 +11,7 @@ public interface CartItemDTOMapper {
     @Mapping(source = "product.barcode", target = "barcode")
     @Mapping(source = "product.name", target = "productName")
     @Mapping(source = "quantity", target = "quantity")
-    @Mapping(source = "unitPrice", target = "unitPrice")
-    @Mapping(source = "totalPrice", target = "totalPrice")
+    @Mapping(source = "priceStamp", target = "unitPrice")
     CartItemDTO toCartItemDTO(CartItemEntity cartItemEntity);
 
 }

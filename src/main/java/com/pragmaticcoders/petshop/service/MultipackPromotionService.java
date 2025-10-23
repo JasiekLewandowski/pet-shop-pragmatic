@@ -23,12 +23,12 @@ public class MultipackPromotionService {
 
         var multiPackItemsInCart = getCartItemsByDiscountType(cartEntity, DiscountType.MULTIPACK);
 
-        for (CartItemEntity item : multiPackItemsInCart) {
-            var promo = findPromotionForMultipackProduct(item.getProduct().getBarcode());
+        for (CartItemEntity cartItem : multiPackItemsInCart) {
+            var promo = findPromotionForMultipackProduct(cartItem.getProduct().getBarcode());
             if (promo.isPresent()) {
-                total = total.add(calculateMultiPackItemsTotal(item, promo.get()));
+                total = total.add(calculateMultiPackItemsTotal(cartItem, promo.get()));
             } else {
-                total = total.add(calculateQuantityByPrice(item.getProduct().getNormalPrice(), item.getQuantity()));
+                total = total.add(calculateQuantityByPrice(cartItem.getProduct().getNormalPrice(), cartItem.getQuantity()));
             }
         }
 

@@ -1,10 +1,12 @@
-package com.pragmaticcoders.petshop.service;
+package com.pragmaticcoders.petshop.unit.service;
 
 import com.pragmaticcoders.petshop.dto.CartDTO;
 import com.pragmaticcoders.petshop.dto.CartItemDTO;
 import com.pragmaticcoders.petshop.mapper.CartDTOMapper;
 import com.pragmaticcoders.petshop.model.CartEntity;
 import com.pragmaticcoders.petshop.repository.CartRepository;
+import com.pragmaticcoders.petshop.service.CartCalculationService;
+import com.pragmaticcoders.petshop.service.CartService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -58,13 +60,13 @@ class CartServiceTest {
                 .sessionId(SESSION_ID)
                 .cartTotal(resultTotal)
                 .cartTotalWithDiscount(resultTotal)
-                .items(List.of(cartItem))
+                .cartItems(List.of(cartItem))
                 .build();
 
         // WHEN
         when(cartRepository.findBySessionId(SESSION_ID)).thenReturn(Optional.of(cart));
+        when(cartCalculationService.calculateCartTotalWithDiscount(any())).thenReturn(resultTotal);
         when(cartCalculationService.calculateCartTotal(any())).thenReturn(resultTotal);
-        when(cartCalculationService.calculateCartTotalWithoutPromotions(any())).thenReturn(resultTotal);
         when(cartDTOMapper.toCartDTO(cart)).thenReturn(resultCartDTO);
 
         var result = cartService.getCart(SESSION_ID);
@@ -73,13 +75,13 @@ class CartServiceTest {
         assertEquals(resultTotal, result.getCartTotal());
         assertEquals(resultTotal, result.getCartTotalWithDiscount());
         assertEquals(SESSION_ID, result.getSessionId());
-        assertThat(result.getItems()).isNotEmpty();
+        assertThat(result.getCartItems()).isNotEmpty();
 
         verify(cartRepository, never()).save(any());
         verify(cartDTOMapper).toCartDTO(any(CartEntity.class));
 
+        verify(cartCalculationService).calculateCartTotalWithDiscount(any(CartEntity.class));
         verify(cartCalculationService).calculateCartTotal(any(CartEntity.class));
-        verify(cartCalculationService).calculateCartTotalWithoutPromotions(any(CartEntity.class));
     }
 
     @Test
@@ -94,7 +96,7 @@ class CartServiceTest {
                 .sessionId(SESSION_ID)
                 .cartTotal(resultTotal)
                 .cartTotalWithDiscount(resultTotal)
-                .items(List.of())
+                .cartItems(List.of())
                 .build();
 
         // WHEN
@@ -107,14 +109,14 @@ class CartServiceTest {
         assertEquals(resultTotal, result.getCartTotal());
         assertEquals(resultTotal, result.getCartTotalWithDiscount());
         assertEquals(SESSION_ID, result.getSessionId());
-        assertThat(result.getItems()).isEmpty();
-        assertThat(result.getItems()).isNotNull();
+        assertThat(result.getCartItems()).isEmpty();
+        assertThat(result.getCartItems()).isNotNull();
 
         verify(cartRepository, never()).save(any());
         verify(cartDTOMapper).toCartDTO(any(CartEntity.class));
 
+        verify(cartCalculationService, never()).calculateCartTotalWithDiscount(any());
         verify(cartCalculationService, never()).calculateCartTotal(any());
-        verify(cartCalculationService, never()).calculateCartTotalWithoutPromotions(any());
     }
 
     @Test
@@ -129,7 +131,7 @@ class CartServiceTest {
                 .sessionId(SESSION_ID)
                 .cartTotal(BigDecimal.ZERO)
                 .cartTotalWithDiscount(BigDecimal.ZERO)
-                .items(List.of())
+                .cartItems(List.of())
                 .build();
 
         // WHEN
@@ -143,15 +145,15 @@ class CartServiceTest {
         assertEquals(BigDecimal.ZERO, result.getCartTotal());
         assertEquals(BigDecimal.ZERO, result.getCartTotalWithDiscount());
         assertEquals(SESSION_ID, result.getSessionId());
-        assertThat(result.getItems()).isEmpty();
-        assertThat(result.getItems()).isNotNull();
+        assertThat(result.getCartItems()).isEmpty();
+        assertThat(result.getCartItems()).isNotNull();
 
         verify(cartRepository).save(any(CartEntity.class));
         verify(cartDTOMapper).toCartDTO(any(CartEntity.class));
 
 
+        verify(cartCalculationService, never()).calculateCartTotalWithDiscount(any());
         verify(cartCalculationService, never()).calculateCartTotal(any());
-        verify(cartCalculationService, never()).calculateCartTotalWithoutPromotions(any());
     }
 
 }
