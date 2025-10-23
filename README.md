@@ -70,4 +70,5 @@ Scheduler CartCleanupScheduler automatycznie usuwa koszyki starsze niż 7 dni z 
 - Hibernate / JPA
 - Lombok
 - MapStruct
-- JUnit / Mockito (do testów jednostkowych)
+- JUnit / Mockito /AssertJ
+- MockMvc + baza H2 (do testów integracyjnych)
